@@ -7,6 +7,7 @@ from .config import Settings
 from .db import create_db_and_tables
 from .tmdb.tmdb_router import router as tmdb_router
 from .user.router import router as user_router
+from .favorites.router import router as favorites_router
 
 
 @lru_cache
@@ -24,6 +25,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.include_router(tmdb_router, prefix="/tmdb", tags=["tmdb"])
 app.include_router(user_router)
+app.include_router(favorites_router)
 
 
 @app.get("/health")
