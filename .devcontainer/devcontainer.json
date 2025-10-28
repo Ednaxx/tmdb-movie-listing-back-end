@@ -7,5 +7,5 @@
     "python.formatting.provider": "black"
   },
   "postCreateCommand": "pip install --user -r requirements.txt",
-  "forwardPorts": [8000]
+  "forwardPorts": [8000, 5432]
 }

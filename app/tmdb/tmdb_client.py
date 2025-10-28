@@ -1,4 +1,3 @@
-import logging
 from typing import Any, Dict
 
 import tmdbsimple as tmdb
@@ -31,5 +30,5 @@ def get_movie(movie_id: int) -> Dict[str, Any]:
     try:
         info = m.info()
         return info
-    except Exception as exc: 
+    except Exception as exc:
         raise HTTPException(status_code=500, detail=f"TMDB movie fetch failed: {exc}")
