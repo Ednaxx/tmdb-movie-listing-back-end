@@ -76,3 +76,22 @@ def remove_favorite_movie(
     session.delete(favorite)
     session.commit()
     return None
+
+
+@router.get("/shared/{share_token}", response_model=List[FavoriteMoviePublic])
+def get_shared_favorites(
+    share_token: str,
+    session: SessionDep,
+):
+    """Get favorite movies for a user via their public share token. No authentication required."""
+    statement = select(User).where(User.share_token == share_token)
+    user = session.exec(statement).first()
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Invalid or expired share link",
+        )
+
+    statement = select(FavoriteMovie).where(FavoriteMovie.user_id == user.id)
+    favorites = session.exec(statement).all()
+    return favorites

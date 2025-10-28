@@ -10,6 +10,9 @@ class User(SQLModel, table=True):
     username: str = Field(index=True, unique=True, min_length=3, max_length=50)
     email: str = Field(index=True, unique=True)
     hashed_password: str
+    share_token: Optional[str] = Field(
+        default=None, index=True, unique=True, max_length=32
+    )
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -35,3 +38,8 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: str | None = None
+
+
+class ShareToken(BaseModel):
+    share_token: str
+    share_url: str
