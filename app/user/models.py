@@ -2,7 +2,7 @@ import uuid
 from pydantic import BaseModel, EmailStr
 from sqlmodel import Field, SQLModel
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 class User(SQLModel, table=True):
@@ -13,8 +13,8 @@ class User(SQLModel, table=True):
     share_token: Optional[str] = Field(
         default=None, index=True, unique=True, max_length=32
     )
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 class UserCreate(BaseModel):

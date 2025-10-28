@@ -2,6 +2,7 @@ from functools import lru_cache
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
 from .db import create_db_and_tables
@@ -23,7 +24,15 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(tmdb_router, prefix="/tmdb", tags=["tmdb"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(tmdb_router)
 app.include_router(user_router)
 app.include_router(favorites_router)
 

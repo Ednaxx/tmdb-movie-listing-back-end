@@ -6,7 +6,7 @@ from .tmdb_client import search_movies, get_movie
 from ..user.auth import get_current_active_user
 from ..user.models import User
 
-router = APIRouter()
+router = APIRouter(prefix="/tmdb", tags=["tmdb"])
 
 
 @router.get("/search")
