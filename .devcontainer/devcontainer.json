@@ -3,8 +3,12 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  "settings": {
-    "python.formatting.provider": "black"
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.formatting.provider": "black"
+      }
+    }
   },
   "postCreateCommand": "pip install --user -r requirements.txt",
   "forwardPorts": [8000, 5432]
